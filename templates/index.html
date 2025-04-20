@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MindReader9000</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 MindReader9000</h1>
+
+    <p><strong>AI Guess:</strong> {{ prediction or "?" }}</p>
+
+    <form method="POST" action="{{ url_for('index') }}">
+        <label>Your input:</label>
+        <input type="text" name="user_input" autocomplete="off" autofocus>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if guess_result %}
+        <p class="{{ 'correct' if 'Correct' in guess_result else 'wrong' }}">{{ guess_result }}</p>
+    {% endif %}
+
+    <p class="score">Score: {{ correct }}/{{ total }}</p>
+
+    <div class="controls">
+        <form action="{{ url_for('new_pattern') }}" method="get">
+            <button type="submit">🔁 New Pattern</button>
+        </form>
+
+        <form action="{{ url_for('end_game') }}" method="get">
+            <button type="submit">🛑 End Game</button>
+        </form>
+    </div>
+  </div>
+</body>
+</html>
